@@ -25,6 +25,19 @@ public class Lista {
         tamaño++;
     }
 
+    public int obtener(int posicion) {
+        Elemento actual = cabeza; // actual apunta a la referencia de cabeza  [ . . 0 <-- actual 1  2 ]
+
+        for (int i = 0; i < posicion; i++){ // itera sobre la posicion que le dimos (imaginense 2)
+            actual = actual.siguiente(); // actual apunta a su siguiente, el numero de iteraciones hasta llegar a la posicion 3
+            // en i = 0 => [ . . 0 actual --> 1  2 ]
+            // en i = 1 => [ . . 0  1 <-- actual 2 ]
+            // en i = 2 => [ . . 0  1 actual -->  2 ]
+        }
+
+        return actual.valor(); // devuelve el valor de actual (en este caso 2)
+    }
+
     public int tamaño(){
         return tamaño;
     }
