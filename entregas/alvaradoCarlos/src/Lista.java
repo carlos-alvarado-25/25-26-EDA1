@@ -13,7 +13,6 @@ public class Lista {
 
         if (cabeza == null){
             this.cabeza = nuevoElemento;
-            System.out.println(this.cabeza.valor());
         } else {
             Elemento actual = this.cabeza; // actual apunta a la referencia de la cabeza [ . . . 0 <--actual 1]
             while (actual.siguiente() != null) { // mientras que la referencia siguiente de actual no sea nula
