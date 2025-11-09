@@ -29,13 +29,26 @@ public class Lista {
         Elemento actual = cabeza; // actual apunta a la referencia de cabeza  [ . . 0 <-- actual 1  2 ]
 
         for (int i = 0; i < posicion; i++){ // itera sobre la posicion que le dimos (imaginense 2)
-            actual = actual.siguiente(); // actual apunta a su siguiente, el numero de iteraciones hasta llegar a la posicion 3
+            actual = actual.siguiente(); // actual apunta a la referencia del siguiente, el numero de iteraciones hasta llegar a la posicion 2
             // en i = 0 => [ . . 0 actual --> 1  2 ]
             // en i = 1 => [ . . 0  1 <-- actual 2 ]
             // en i = 2 => [ . . 0  1 actual -->  2 ]
         }
 
         return actual.valor(); // devuelve el valor de actual (en este caso 2)
+    }
+
+    public void modificar(int posicion, int nuevoValor){
+        Elemento actual = cabeza;  // actual apunta a la referencia de cabeza  [ . . 0 <-- actual 1  2 ]
+
+        for (int i = 0; i < posicion; i++){ // itera sobre la posicion que le dimos (imaginense 2)
+            actual = actual.siguiente(); // actual apunta a la referencia del siguiente, el numero de iteraciones hasta llegar a la posicion 2
+            // en i = 0 => [ . . 0 actual --> 1  2 ]
+            // en i = 1 => [ . . 0  1 <-- actual 2 ]
+            // en i = 2 => [ . . 0  1 actual -->  2 ]
+        }
+
+        actual.darValor(nuevoValor); // cambia el valvor del nodo actual al nuevo valor que le pasamos de parámetro
     }
 
     public int tamaño(){

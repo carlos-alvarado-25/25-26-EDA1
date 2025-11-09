@@ -6,5 +6,9 @@ public class Main {
         miLista.agregar(50);  miLista.mostrarLista();
 
         System.out.println("Posicion 2 = " + miLista.obtener(2)); miLista.mostrarLista();
+
+        miLista.modificar(2, 90); miLista.mostrarLista();
+
+        System.out.println("Posicion 2 = " + miLista.obtener(2)); miLista.mostrarLista();
     }
 }
