@@ -1,17 +1,17 @@
-public class SimuladorLista {
+public class MiLista {
     private int[] datos;
     private int tamaño;
     private static final int CAPACIDAD_INICIAL = 4;
     public final int TAMAÑO_INICIAL = 0;
-    public final int MULTIPLICADOR_ARRAY = 2;
+    public final int FACTOR_DE_CRECIMIENTO = 2;
 
-    public SimuladorLista() {
+    public MiLista() {
         datos = new int[CAPACIDAD_INICIAL];
         tamaño = TAMAÑO_INICIAL;
     }
 
     private void expandir() {
-        int nuevaCapacidad = datos.length * MULTIPLICADOR_ARRAY;
+        int nuevaCapacidad = datos.length * FACTOR_DE_CRECIMIENTO;
         int[] nuevoArray = new int[nuevaCapacidad];
 
         for (int i = 0; i < tamaño; i++) {
