@@ -2,12 +2,11 @@ public class SimuladorLista {
     private int[] datos;
     private int tamaño;
     private static final int CAPACIDAD_INICIAL = 4;
-    public final int TAMAÑO_INICIAL = 0;
-    public final int MULTIPLICADOR_ARRAY = 2;
+    private static final int MULTIPLICADOR_ARRAY = 2;
 
     public SimuladorLista() {
         datos = new int[CAPACIDAD_INICIAL];
-        tamaño = TAMAÑO_INICIAL;
+        tamaño = 0;
     }
 
     private void expandir() {
@@ -81,10 +80,6 @@ public class SimuladorLista {
 
     public int getTamaño() {
         return tamaño;
-    }
-
-    public int getCapacidad() {
-        return datos.length;
     }
     
     public String toString() {
