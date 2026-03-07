@@ -16,7 +16,7 @@ public class Monitora {
         for (int i = 0; i < niños.length; i++) {
             if (niños[i] == null) {
                 niños[i] = niño;
-                System.out.println("Llega " + niño.nombre() + " " + "(" + niño.edad() + " años" + ")");
+                System.out.println("Llega " + niño.nombre() + " (" + niño.edad() + " años)");
                 System.out.println(niño.nombre() + " pasa a la cola de " + nombre);
                 cantidadDeNiños++;
                 return;
@@ -30,10 +30,8 @@ public class Monitora {
             return new Niño[0];
 
         Niño[] grupoAEnviar = extraerGrupo(cantidadDeNiños);
-
         Niño[] grupoRecibido = monitora.recibeNiñosParaJugar(grupoAEnviar);
 
-        System.out.println(grupoRecibido.length);
         reacomodarNiños(grupoRecibido.length);
         cantidadDeNiños -= grupoRecibido.length;
 
@@ -72,7 +70,7 @@ public class Monitora {
         System.out.println("Niños transferidos:");
         for (Niño niño : grupo) {
             if (niño != null) {
-                System.out.println("- " + niño.nombre());
+                System.out.println("- " + niño.nombre() + " (" + niño.edad() + " años)");
             } else {
                 System.out.println("niño nulo");
             }
@@ -122,13 +120,11 @@ public class Monitora {
             System.out.println("No hay niños en la cola de " + nombre + " para presentarse.");
             return;
         }
-
         niños[0].presentarse();
     }
 
     public void pedirCincoPrimerosPresentarse() {
         int limite = Math.min(5, cantidadDeNiños);
-
         for (int i = 0; i < limite; i++) {
             niños[i].presentarse();
         }
@@ -136,7 +132,6 @@ public class Monitora {
 
     public void pedirCincoUltimosPresentarse() {
         int inicio = Math.max(0, cantidadDeNiños - 5);
-
         for (int i = inicio; i < cantidadDeNiños; i++) {
             niños[i].presentarse();
         }
@@ -144,15 +139,12 @@ public class Monitora {
 
     public void pedirNiñosMayoresDe5Presentarse() {
         boolean hayNiños = false;
-
         for (int i = 0; i < cantidadDeNiños; i++) {
-            Niño niño = niños[i];
-            if (niño.edad() > 5) {
-                niño.presentarse();
+            if (niños[i].edad() > 5) {
+                niños[i].presentarse();
                 hayNiños = true;
             }
         }
-
         if (!hayNiños) {
             System.out.println("No hay niños mayores de 5 años en la cola.\n");
         }
@@ -160,15 +152,12 @@ public class Monitora {
 
     public void pedirNiñosPorLetra(char letra) {
         boolean hayNiños = false;
-
         for (int i = 0; i < cantidadDeNiños; i++) {
-            Niño niño = niños[i];
-            if (niño.nombre().toUpperCase().charAt(0) == Character.toUpperCase(letra)) {
-                niño.presentarse();
+            if (Character.toUpperCase(niños[i].nombre().charAt(0)) == Character.toUpperCase(letra)) {
+                niños[i].presentarse();
                 hayNiños = true;
             }
         }
-
         if (!hayNiños) {
             System.out.println("No hay niños cuyos nombres empiecen con '" + letra + "'.\n");
         }
@@ -178,7 +167,6 @@ public class Monitora {
         if (cantidadDeNiños == 0) {
             return 0.0;
         }
-
         int suma = 0;
         for (int i = 0; i < cantidadDeNiños; i++) {
             suma += niños[i].edad();
@@ -198,11 +186,10 @@ public class Monitora {
         int idxMayores = 0;
 
         for (int i = 0; i < cantidadDeNiños; i++) {
-            Niño niño = niños[i];
-            if (niño.edad() < 5) {
-                menoresDe5[idxMenores++] = niño;
+            if (niños[i].edad() < 5) {
+                menoresDe5[idxMenores++] = niños[i];
             } else {
-                mayoresOIgual5[idxMayores++] = niño;
+                mayoresOIgual5[idxMayores++] = niños[i];
             }
         }
 
@@ -216,16 +203,13 @@ public class Monitora {
         reorganizarCola(mayoresOIgual5, idxMayores);
 
         System.out.println("Niños que se quedan con " + nombre + " para jugar:");
-        for (int i = 0; i < cantidadDeNiños; i++) {
-            System.out.println("- " + niños[i].nombre() + " (" + niños[i].edad() + " años)");
-        }
-        System.out.println();
+        mostrarEstadoInterno();
 
         return menoresDe5;
     }
 
     public void reorganizarCola(Niño[] nuevosNiños, int cantidad) {
-        for (int i = 0; i < cantidadDeNiños; i++) {
+        for (int i = 0; i < niños.length; i++) {
             niños[i] = null;
         }
         cantidadDeNiños = 0;
@@ -241,37 +225,34 @@ public class Monitora {
         if (cantidadDeNiños == 0)
             return new Niño[0];
 
-        Niño[] grupo = Arrays.copyOf(niños, cantidadDeNiños);
+        Niño[] grupo = extraerGrupo(cantidadDeNiños);
 
         for (int i = 0; i < cantidadDeNiños; i++) {
             otraMonitora.recibeNiño(niños[i]);
         }
 
-        for (int i = 0; i < cantidadDeNiños; i++) {
-            niños[i] = null;
-        }
-        int transferidos = cantidadDeNiños;
+        reacomodarNiños(cantidadDeNiños);
         cantidadDeNiños = 0;
 
-        System.out.println(nombre + " transfiere TODOS sus niños a " + otraMonitora.nombre + " INMEDIATAMENTE");
+        System.out.println(nombre + " transfiere TODOS sus niños a " + otraMonitora.nombre() + " INMEDIATAMENTE");
 
-        return Arrays.copyOf(grupo, transferidos);
+        return grupo;
     }
 
     public void mostrarEstado() {
         System.out.println(nombre.toUpperCase() + ":");
-
         if (cantidadDeNiños == 0) {
             System.out.println("  Cola vacía\n");
             return;
         }
-
         System.out.println("  Niños en cola: " + cantidadDeNiños);
+        mostrarEstadoInterno();
+    }
+
+    private void mostrarEstadoInterno() {
         for (int i = 0; i < cantidadDeNiños; i++) {
-            Niño niño = niños[i];
-            System.out.println("  - " + niño.nombre() + " (" + niño.edad() + " años)");
+            System.out.println("  - " + niños[i].nombre() + " (" + niños[i].edad() + " años)");
         }
         System.out.println();
     }
-
 }
