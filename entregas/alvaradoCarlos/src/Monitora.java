@@ -224,7 +224,7 @@ public class Monitora {
         return menoresDe5;
     }
 
-    public void reorganizarCola(Niño[] nuevosNiños, int cantidad) {
+    private void reorganizarCola(Niño[] nuevosNiños, int cantidad) {
         for (int i = 0; i < cantidadDeNiños; i++) {
             niños[i] = null;
         }
