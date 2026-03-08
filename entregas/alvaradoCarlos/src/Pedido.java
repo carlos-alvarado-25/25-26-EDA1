@@ -10,9 +10,10 @@ public class Pedido {
     }
 
     public void cocinar() {
-        if (tiempo > 0) {
-            tiempo--;
+        if (tiempo <= 0) {
+            return;
         }
+        tiempo--;
     }
 
     public boolean esMasRapidoQue(Pedido otro) {
